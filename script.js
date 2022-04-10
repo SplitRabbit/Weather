@@ -19,7 +19,7 @@ function addsearchhistory() {
     let searchhistoryentryEl = document.createElement("li")
     searchhistoryentryEl.textContent = cityInputEl.value
     //add classes here 
-    searchhistoryentryEl.classList = "row searchhistoryentry"
+    searchhistoryentryEl.classList = "row searchhistoryentry bg-secondary m-3 p-2"
     searchhistoryentryEl.addEventListener("click",clicksearchhistory)
     searchhistorylistEl.appendChild(searchhistoryentryEl)
 };
@@ -28,7 +28,6 @@ function addsearchhistory() {
 function clicksearchhistory(e) {
     var li = e.currentTarget;
     cityInputEl.value = li.textContent
-    console.log('potato')
     getweather(cityInputEl.value)
 };
 
@@ -45,11 +44,13 @@ function getweather(city) {
     let api_url = 'https://api.openweathermap.org/data/2.5/weather?q='+city+'&appid=6090a0c3c0ba8ad5f1c59b776c43013c'
 //use first api to find city lat and long
  fetch (api_url).then(function(response) {
+     if (response.ok) {
      response.json().then(function(data) {
         console.log(data)
             //grab lat and long 
             let lat = data.coord.lat;
             let lon = data.coord.lon;
+            let fetchedcity = data.name;
 
             //fetch api for 5 day forecast
             fetch('https://api.openweathermap.org/data/2.5/onecall?lat='+lat+'&lon='+lon+'&exclude=alerts,minutely,hourly&appid=6090a0c3c0ba8ad5f1c59b776c43013c').then(function(response) {
@@ -58,6 +59,7 @@ function getweather(city) {
 
             //create searched city element
             var currentweatherEl = document.getElementById("currentweather");
+            currentweatherEl.classList = "border border-secondary p-5"
              //remove current dom elements
              currentweatherEl.innerHTML = "";
 
@@ -70,7 +72,7 @@ function getweather(city) {
                 //grab temperature
                     let cityEl = document.createElement("h2")
                     //add fetched information to card
-                    cityEl.textContent = city
+                    cityEl.textContent = fetchedcity
                     currentweatherEl.appendChild(cityEl);
                     console.log(cityEl);
 
@@ -114,7 +116,7 @@ function getweather(city) {
                         let forecastdate = (today.addDays(i+1)).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) 
                     //append parent container
                         let forecastEl = document.createElement("div");
-                        forecastEl.classList = "col container";
+                        forecastEl.classList = "m-3 bg-secondary col container p-3";
                         //append current date
                         let forecastdateEl = document.createElement("h5");
                         forecastdateEl.textContent = forecastdate;
@@ -137,8 +139,10 @@ function getweather(city) {
                 });
             });
      });
-    }).catch(function(){
-        console.log('404 Not Found');
+    }
+    else {
+        alert("Enter a Valid City!")
+    }
       });
 };
 

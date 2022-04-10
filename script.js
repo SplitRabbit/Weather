@@ -73,6 +73,12 @@ function getweather(city) {
                     let cityEl = document.createElement("h2")
                     //add fetched information to card
                     cityEl.textContent = fetchedcity
+                        //append child icon
+                        let forecasticoncode = data.current.weather[0].icon;
+                        let iconEl = document.createElement("img");
+                        iconEl.src = 'http://openweathermap.org/img/w/'+forecasticoncode+'.png';
+                        cityEl.appendChild(iconEl);
+                    //append to rest of div
                     currentweatherEl.appendChild(cityEl);
                     console.log(cityEl);
 
@@ -114,13 +120,18 @@ function getweather(city) {
                         let forecastwind = data.daily[i].wind_speed;
                         let forecasthumidity = data.daily[i].humidity;
                         let forecastdate = (today.addDays(i+1)).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) 
+                        let forecasticoncode = data.daily[i].weather[0].icon;
                     //append parent container
                         let forecastEl = document.createElement("div");
-                        forecastEl.classList = "m-3 bg-secondary col container p-3";
+                        forecastEl.classList = "m-3 bg-secondary col container p-3 text-white";
                         //append current date
                         let forecastdateEl = document.createElement("h5");
                         forecastdateEl.textContent = forecastdate;
                         forecastEl.appendChild(forecastdateEl);
+                        //append icon
+                        let forecasticonEl = document.createElement("img");
+                        forecasticonEl.src = 'http://openweathermap.org/img/w/'+forecasticoncode+'.png';
+                        forecastEl.appendChild(forecasticonEl);
                         //append temp
                         let forecasttempEl = document.createElement("div");
                         forecasttempEl.textContent = "Temp: " + forecasttemp

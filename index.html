@@ -17,20 +17,21 @@
 </head>
 
 <body>
-    <header class="jumbotron text-center">
+    <header class="jumbotron text-center bg-info">
             <h1 >Weather Dashboard</h1>
     </header>
     <div class="row justify-content-center">
-        <div class="card col col-3" id="searchForm">
-            <h2 class="form-label">Search For A City:</h2>
-            <input placeholder="City Name" class="form-control" id="city">
-            <button id="searchBtn">Search</button>
+        <div class="card col col-3 m-2 p-2" id="searchForm">
+            <h2 class="form-label p-2">Search For A City:</h2>
+            <input placeholder="City Name" class="form-control m-1" id="city">
+            <button id="searchBtn" class = "bg-primary p-1 m-3">Search</button>
             <ul id = "searchhistorylist">
             </ul>
         </div>
         <div class="container col col-8">
             <div class="container" id="currentweather">
             </div>
+            <h2 class = 'p-4'>5 Day Forecast:</h2>
             <div class="row" id = "forecastweather">      
             </div>
         </div>

@@ -31,13 +31,13 @@ function clicksearchhistory(e) {
     getweather(cityInputEl.value)
 };
 
+
 //increment date
 Date.prototype.addDays = function(days) {
     var date = new Date(this.valueOf());
     date.setDate(date.getDate() + days);
     return date;
 }
-
 
 //fetch information from weather api
 function getweather(city) {
